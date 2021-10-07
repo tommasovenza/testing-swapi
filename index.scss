@@ -3,12 +3,21 @@
     padding: 0;
     box-sizing: border-box;
 }
+ul li {
+    list-style-type: none;
+}
+body {
+    font-family: 'Gemunu Libre', sans-serif;
+}
 .planet-list {
     margin: 2em 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    li {
+        font-size: 2rem;
+    }
 }
 .planet {
     width: 50%;
@@ -19,8 +28,14 @@
     background-color: #fff;
     box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.15);
     text-align: center;
-    
-}
-[data-planet-created] {
-    color: #000;
+    position: relative;
+    font-weight: bold;
+    span {
+        position: absolute;
+        top: .5em;
+        right: 1em;
+        font-size: .8rem;
+        font-weight: 300;
+
+    }
 }
