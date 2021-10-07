@@ -40,6 +40,7 @@ function dataInverse(URL) {
           // create a span
           const planetDate = document.createElement("span")
           planetDom.classList.add("planet")
+          planetDom.classList.add("animation")
           planetDom.innerHTML = planetName
           planetDate.innerHTML = dayCreated + " " + hourCreated
           planetList.appendChild(planetDom)
@@ -69,6 +70,7 @@ function getData(URL) {
         // create a span
         const planetDate = document.createElement("span")
         planetDom.classList.add("planet")
+        planetDom.classList.add("animation")
         planetDom.innerHTML = planetName
         planetDate.innerHTML = dayCreated + " " + hourCreated
         planetList.appendChild(planetDom)

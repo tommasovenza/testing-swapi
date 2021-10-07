@@ -21,6 +21,24 @@ h1 {
 .hide {
     display: none;
 }
+
+.animation {
+    animation-name: dropIn;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+}
+@keyframes dropIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
 // end reusable component
 .planet-list {
     margin: 2em 0;
