@@ -3,12 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
+body {
+    font-family: 'Gemunu Libre', sans-serif;
+    background-color: rgba(14, 67, 212, 0.502);
+}
 ul li {
     list-style-type: none;
 }
-body {
-    font-family: 'Gemunu Libre', sans-serif;
+h1 {
+    margin: .7em 0;
 }
+// reusable component
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+}
+.hide {
+    display: none;
+}
+// end reusable component
 .planet-list {
     margin: 2em 0;
     display: flex;
@@ -20,7 +33,7 @@ body {
     }
 }
 .planet {
-    width: 50%;
+    width: 100%;
     margin: 1em 0;
     padding: 20px;
     border-radius: 4px;
@@ -36,6 +49,25 @@ body {
         right: 1em;
         font-size: .8rem;
         font-weight: 300;
+    }
+}
 
+// section command
+.wrapper-cmd {
+    display: flex;
+    justify-content: flex-start;
+    .flex-items {
+        border: none;
+        padding: .5rem;
+        margin-right: 1.3em;
+        font-family: 'Gemunu Libre', sans-serif;
+        border-radius: 4px;
+    }
+}
+
+// media queries
+@media (min-width: 500px) {
+    .flex-items {
+        font-size: 1rem;
     }
 }
