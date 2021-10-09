@@ -83,6 +83,15 @@ h1 {
     }
 }
 
+// errors
+#error {
+    font-size: 1.325rem;
+    font-weight: bold;
+    color: rgb(215, 28, 28);
+    text-transform: capitalize;
+}
+
+
 // media queries
 @media (min-width: 500px) {
     .flex-items {

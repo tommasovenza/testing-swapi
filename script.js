@@ -9,6 +9,7 @@ const button = document.querySelector("#makeCall")
 const changeOrder = document.querySelector("#change-order")
 const firstDate = document.querySelector("#firstDate")
 const secondDate = document.querySelector("#secondDate")
+const error = document.querySelector("#error")
 
 buttonSearch.addEventListener("click", () => {
   if (firstDate.value === "") {
@@ -29,6 +30,7 @@ changeOrder.addEventListener("click", () => {
 function dateResearch(date, URL) {
   let dateToReasearch = date.value
   // clean canvas
+  error.innerHTML = ""
   planetList.innerHTML = ""
 
   // API Request
@@ -37,11 +39,11 @@ function dateResearch(date, URL) {
     .then((data) => {
       const planets = data.results
 
+      const allPlanet = []
       planets.forEach((planet) => {
         let stringCreated = planet.created
 
         if (stringCreated.includes(dateToReasearch)) {
-          const allPlanet = []
           const planetName = planet.name
           const planetCreated = planet.created
 
@@ -58,16 +60,17 @@ function dateResearch(date, URL) {
           planetDate.innerHTML = dayCreated + " " + hourCreated
           planetList.appendChild(planetDom)
           planetDom.appendChild(planetDate)
-        } else {
-          console.log("no planet for this research")
         }
       })
+      if (allPlanet.length === 0) {
+        error.innerHTML = "no planets found"
+      }
     })
-  // .catch((error) => console.error(error))
 }
 
 function getData(URL) {
   // clean canvas
+  error.innerHTML = ""
   planetList.innerHTML = ""
   fetch(URL)
     .then((response) => response.json())
@@ -114,6 +117,7 @@ function getData(URL) {
 }
 
 function dataInverse(URL) {
+  error.innerHTML = ""
   planetList.innerHTML = ""
 
   fetch(URL)
