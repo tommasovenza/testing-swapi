@@ -4,8 +4,19 @@ const baseURL = "https://swapi.dev/api/planets/"
 // get things I need
 const planetList = document.querySelector(".planet-list")
 const planetAttr = planetList.querySelector("[data-planet-created]")
+const buttonSearch = document.querySelector("#search")
 const button = document.querySelector("#makeCall")
 const changeOrder = document.querySelector("#change-order")
+const firstDate = document.querySelector("#firstDate")
+const secondDate = document.querySelector("#secondDate")
+
+buttonSearch.addEventListener("click", () => {
+  if (firstDate.value === "") {
+    alert("ricontrolla i campi di ricerca")
+  } else {
+    dateResearch(firstDate, baseURL)
+  }
+})
 
 button.addEventListener("click", () => {
   getData(baseURL)
@@ -15,25 +26,27 @@ changeOrder.addEventListener("click", () => {
   dataInverse(baseURL)
 })
 
-function dataInverse(URL) {
+function dateResearch(date, URL) {
+  let dateToReasearch = date.value
+  // clean canvas
   planetList.innerHTML = ""
 
+  // API Request
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
       const planets = data.results
 
-      planets
-        .slice()
-        .reverse()
-        .forEach((planet) => {
+      planets.forEach((planet) => {
+        let stringCreated = planet.created
+
+        if (stringCreated.includes(dateToReasearch)) {
           const allPlanet = []
           const planetName = planet.name
           const planetCreated = planet.created
 
           const hourCreated = planetCreated.slice(11, 19)
           const dayCreated = planetCreated.slice(0, 10)
-          console.log()
           const planetDom = document.createElement("li")
           // push every planet in array
           allPlanet.push(planetCreated)
@@ -45,11 +58,16 @@ function dataInverse(URL) {
           planetDate.innerHTML = dayCreated + " " + hourCreated
           planetList.appendChild(planetDom)
           planetDom.appendChild(planetDate)
-        })
+        } else {
+          console.log("no planet for this research")
+        }
+      })
     })
+  // .catch((error) => console.error(error))
 }
 
 function getData(URL) {
+  // clean canvas
   planetList.innerHTML = ""
   fetch(URL)
     .then((response) => response.json())
@@ -63,7 +81,12 @@ function getData(URL) {
 
         const hourCreated = planetCreated.slice(11, 19)
         const dayCreated = planetCreated.slice(0, 10)
-        console.log()
+        // const day = planetCreated.slice(0, 10).slice(8, 10)
+        // const year = planetCreated.slice(0, 10).slice(0, 4)
+        // const string = dayCreated + " " + hourCreated
+        // console.log(string)
+        // console.log(dayCreated)
+        // console.log(year)
         const planetDom = document.createElement("li")
         // push every planet in array
         allPlanet.push(planetCreated)
@@ -90,22 +113,42 @@ function getData(URL) {
     })
 }
 
-// function reverseString(string) {
-//   var result = ""
-//   for (var i = string.length - 1; i >= 0; i--) result += string[i]
-//   return result
-// }
+function dataInverse(URL) {
+  planetList.innerHTML = ""
+
+  fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+      const planets = data.results
+
+      planets
+        .slice()
+        .reverse()
+        .forEach((planet) => {
+          const allPlanet = []
+          const planetName = planet.name
+          const planetCreated = planet.created
+
+          const hourCreated = planetCreated.slice(11, 19)
+          const dayCreated = planetCreated.slice(0, 10)
+          console.log(dayCreated)
+          const planetDom = document.createElement("li")
+          // push every planet in array
+          allPlanet.push(planetCreated)
+          // create a span
+          const planetDate = document.createElement("span")
+          planetDom.classList.add("planet")
+          planetDom.classList.add("animation")
+          planetDom.innerHTML = planetName
+          planetDate.innerHTML = dayCreated + " " + hourCreated
+          planetList.appendChild(planetDom)
+          planetDom.appendChild(planetDate)
+        })
+    })
+}
 
 // search parameters
 // https://swapi.dev/api/people/?search=r2
 
 // ROOT??
 // http https://swapi.dev/api/
-
-// async function getData(URL) {
-//   const response = await fetch(URL)
-//   const data = await response.json()
-//   console.log(data)
-// }
-
-// getData(baseURL)
