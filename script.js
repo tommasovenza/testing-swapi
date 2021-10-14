@@ -18,6 +18,12 @@ buttonSearch.addEventListener("click", () => {
   console.log(secondDate.value)
   if (firstDate.value === "") {
     alert("ricontrolla i campi di ricerca")
+  } else if (firstDate.value >= secondDate.value) {
+    alert("la prima data non può essere superiore alla seconda")
+  } else if (secondDate.value === "2014-12-09") {
+    dateResearch(secondDate, baseURL)
+  } else if (secondDate.value === "2014-12-10") {
+    getData(baseURL)
   } else if (
     firstDate.value <= "2014-12-09" &&
     secondDate.value >= "2014-12-10"
@@ -27,6 +33,7 @@ buttonSearch.addEventListener("click", () => {
     dateResearch(firstDate, baseURL)
   }
 })
+
 // click event to get all the data
 button.addEventListener("click", () => {
   getData(baseURL)
