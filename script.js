@@ -1,10 +1,9 @@
-// this goes before endpoint
+// URL before endpoint
 const baseURL = "https://swapi.dev/api/planets/"
 
 // get things I need
 const planetListLeft = document.querySelector(".planet-list-left")
 const planetListRight = document.querySelector(".planet-list-right")
-
 // const planetAttr = planetList.querySelector("[data-planet-created]")
 const buttonSearch = document.querySelector("#search")
 const button = document.querySelector("#makeCall")
@@ -13,6 +12,7 @@ const firstDate = document.querySelector("#firstDate")
 const secondDate = document.querySelector("#secondDate")
 const error = document.querySelector("#error")
 
+// click event for research
 buttonSearch.addEventListener("click", () => {
   console.log(firstDate.value)
   console.log(secondDate.value)
@@ -27,17 +27,19 @@ buttonSearch.addEventListener("click", () => {
     dateResearch(firstDate, baseURL)
   }
 })
-
+// click event to get all the data
 button.addEventListener("click", () => {
   getData(baseURL)
 })
-
+// click event to see all the data reverted
 changeOrder.addEventListener("click", () => {
-  dataInverse(baseURL)
+  // dataInverse(baseURL)
+  getData(baseURL, "inverse")
 })
 
 function dateResearch(date, URL) {
   let dateToReasearch = date.value
+
   // clean canvas
   error.innerHTML = ""
   planetListLeft.innerHTML = ""
@@ -47,6 +49,7 @@ function dateResearch(date, URL) {
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
+      // get planets' data from API
       const planets = data.results
 
       const rightOrLeft = [
@@ -63,9 +66,10 @@ function dateResearch(date, URL) {
       ]
 
       const allPlanet = []
+
       planets.forEach((planet, index) => {
         let stringCreated = planet.created
-
+        // adding this class you can print item left or right
         const classToPrint = rightOrLeft[index]
 
         if (stringCreated.includes(dateToReasearch)) {
@@ -97,17 +101,18 @@ function dateResearch(date, URL) {
         }
       })
       if (allPlanet.length === 0) {
-        error.innerHTML = "no planets found"
+        error.innerHTML = "no data found for this date"
       }
     })
 }
 
-function getData(URL) {
+function getData(URL, inverse) {
   // clean canvas
   error.innerHTML = ""
   planetListLeft.innerHTML = ""
   planetListRight.innerHTML = ""
 
+  // API REQUEST
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
@@ -125,76 +130,54 @@ function getData(URL) {
         "left",
         "right",
       ]
+      // get data from last values
+      if (inverse === "inverse") {
+        planets
+          .slice()
+          .reverse()
+          .forEach((planet, index) => {
+            const allPlanet = []
+            const planetName = planet.name
+            const planetCreated = planet.created
 
-      planets.forEach((planet, index) => {
-        const classToPrint = rightOrLeft[index]
-        const allPlanet = []
-        const planetName = planet.name
-        const planetCreated = planet.created
+            const classToPrint = rightOrLeft[index]
 
-        const hourCreated = planetCreated.slice(11, 19)
-        const dayCreated = planetCreated.slice(0, 10)
+            const hourCreated = planetCreated.slice(11, 19)
+            const dayCreated = planetCreated.slice(0, 10)
+            console.log(dayCreated)
+            const planetDom = document.createElement("li")
+            // push every planet in array
+            allPlanet.push(planetCreated)
+            // create a span
+            const planetDate = document.createElement("span")
+            planetDom.classList.add("planet")
+            planetDom.classList.add(classToPrint)
+            planetDom.classList.add("animation")
 
-        const planetDom = document.createElement("li")
-        // push every planet in array
-        allPlanet.push(planetCreated)
-        // create a span
-        const planetDate = document.createElement("span")
-        planetDom.classList.add("planet")
-        planetDom.classList.add(classToPrint)
-        planetDom.classList.add("animation")
-        planetDom.innerHTML = planetName
-        planetDate.innerHTML = dayCreated + " " + hourCreated
-        console.log(planetDom)
-        if (planetDom.classList.contains("left")) {
-          planetDate.classList.add("left")
-          planetListLeft.appendChild(planetDom)
-          planetDom.appendChild(planetDate)
-        } else {
-          planetDate.classList.add("right")
-          planetListRight.appendChild(planetDom)
-          planetDom.appendChild(planetDate)
-        }
-      })
-    })
-}
+            planetDom.innerHTML = planetName
+            planetDate.innerHTML = dayCreated + " " + hourCreated
 
-function dataInverse(URL) {
-  error.innerHTML = ""
-  planetListLeft.innerHTML = ""
-  planetListRight.innerHTML = ""
-
-  fetch(URL)
-    .then((response) => response.json())
-    .then((data) => {
-      const planets = data.results
-
-      const rightOrLeft = [
-        "left",
-        "right",
-        "left",
-        "right",
-        "left",
-        "right",
-        "left",
-        "right",
-        "left",
-        "right",
-      ]
-
-      planets
-        .slice()
-        .reverse()
-        .forEach((planet, index) => {
+            if (planetDom.classList.contains("left")) {
+              planetDate.classList.add("left")
+              planetListLeft.appendChild(planetDom)
+              planetDom.appendChild(planetDate)
+            } else {
+              planetDate.classList.add("right")
+              planetListRight.appendChild(planetDom)
+              planetDom.appendChild(planetDate)
+            }
+          })
+      } else {
+        // get all data
+        planets.forEach((planet, index) => {
+          const classToPrint = rightOrLeft[index]
           const allPlanet = []
           const planetName = planet.name
           const planetCreated = planet.created
 
-          const classToPrint = rightOrLeft[index]
-
           const hourCreated = planetCreated.slice(11, 19)
           const dayCreated = planetCreated.slice(0, 10)
-          console.log(dayCreated)
+
           const planetDom = document.createElement("li")
           // push every planet in array
           allPlanet.push(planetCreated)
@@ -203,10 +186,9 @@ function dataInverse(URL) {
           planetDom.classList.add("planet")
           planetDom.classList.add(classToPrint)
           planetDom.classList.add("animation")
-
           planetDom.innerHTML = planetName
           planetDate.innerHTML = dayCreated + " " + hourCreated
-
+          console.log(planetDom)
           if (planetDom.classList.contains("left")) {
             planetDate.classList.add("left")
             planetListLeft.appendChild(planetDom)
@@ -217,29 +199,6 @@ function dataInverse(URL) {
             planetDom.appendChild(planetDate)
           }
         })
+      }
     })
 }
-
-// search parameters
-// https://swapi.dev/api/people/?search=r2
-
-// ROOT??
-// http https://swapi.dev/api/
-
-// const day = planetCreated.slice(0, 10).slice(8, 10)
-// const year = planetCreated.slice(0, 10).slice(0, 4)
-// const string = dayCreated + " " + hourCreated
-// console.log(string)
-// console.log(dayCreated)
-// console.log(year)
-
-// const allPlanetDom = Array.from(document.querySelectorAll(".planetDom"))
-// console.log(allPlanetDom)
-// for (let index = 0; index < allPlanet.length; index++) {
-//   const currentEl = allPlanet[index]
-//   console.log(currentEl)
-//   //   const planetDate = document.createElement("span")
-
-//   //   planetDate.innerHTML = currentEl.textContent
-//   //   planetDom.appendChild(planetDate)
-// }

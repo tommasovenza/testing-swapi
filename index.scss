@@ -21,6 +21,9 @@ h1 {
 .hide {
     display: none;
 }
+// end reusable component
+
+// animation
 .animation {
     animation-name: dropIn;
     animation-duration: 1s;
@@ -36,8 +39,23 @@ h1 {
         opacity: 1;
     }
 }
-// end reusable component
+// animation end
 
+// section command and buttons
+.wrapper-cmd {
+    display: flex;
+    justify-content: flex-start;
+    .flex-items {
+        border: none;
+        padding: .5rem;
+        margin-right: 1.3em;
+        font-family: 'Gemunu Libre', sans-serif;
+        border-radius: 4px;
+    }
+}
+// end section command and buttons
+
+// main part with all the DATA print out
 .wrapper-uls-lists {
     width: 100%;
     display: flex;
@@ -79,7 +97,7 @@ h1 {
     }
 }
 
-// Timeline' section
+// Timeline' section style
 li.right::before {
     content: "";
     position: absolute;
@@ -124,27 +142,18 @@ li.left::after {
 }
 // end timeline' section
 
-// section command
-.wrapper-cmd {
-    display: flex;
-    justify-content: flex-start;
-    .flex-items {
-        border: none;
-        padding: .5rem;
-        margin-right: 1.3em;
-        font-family: 'Gemunu Libre', sans-serif;
-        border-radius: 4px;
-    }
-}
-
-// errors
+// errors' section
 #error {
     font-size: 1.325rem;
     font-weight: bold;
     color: rgb(215, 28, 28);
     text-transform: capitalize;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 5px;
+    width: 300px;
+    text-align: center;
 }
-
 
 // media queries
 @media (min-width: 500px) {
@@ -152,7 +161,6 @@ li.left::after {
         font-size: 1rem;
     }
 }
-
 @media (max-width: 700px) {
     .wrapper-uls-lists {
         flex-direction: column;
@@ -175,5 +183,4 @@ li.left::after {
         border-right: 15px solid white;
         border-left: 0;
     }
-    
 }
