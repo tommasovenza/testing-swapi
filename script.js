@@ -33,7 +33,8 @@ function dateResearch(date, URL) {
   let dateToReasearch = date.value
   // clean canvas
   error.innerHTML = ""
-  planetList.innerHTML = ""
+  planetListLeft.innerHTML = ""
+  planetListRight.innerHTML = ""
 
   // API Request
   fetch(URL)
@@ -41,9 +42,24 @@ function dateResearch(date, URL) {
     .then((data) => {
       const planets = data.results
 
+      const rightOrLeft = [
+        "left",
+        "right",
+        "left",
+        "right",
+        "left",
+        "right",
+        "left",
+        "right",
+        "left",
+        "right",
+      ]
+
       const allPlanet = []
-      planets.forEach((planet) => {
+      planets.forEach((planet, index) => {
         let stringCreated = planet.created
+
+        const classToPrint = rightOrLeft[index]
 
         if (stringCreated.includes(dateToReasearch)) {
           const planetName = planet.name
@@ -57,11 +73,20 @@ function dateResearch(date, URL) {
           // create a span
           const planetDate = document.createElement("span")
           planetDom.classList.add("planet")
+          planetDom.classList.add(classToPrint)
           planetDom.classList.add("animation")
           planetDom.innerHTML = planetName
           planetDate.innerHTML = dayCreated + " " + hourCreated
-          planetList.appendChild(planetDom)
-          planetDom.appendChild(planetDate)
+          console.log(planetDom)
+          if (planetDom.classList.contains("left")) {
+            planetDate.classList.add("left")
+            planetListLeft.appendChild(planetDom)
+            planetDom.appendChild(planetDate)
+          } else {
+            planetDate.classList.add("right")
+            planetListRight.appendChild(planetDom)
+            planetDom.appendChild(planetDate)
+          }
         }
       })
       if (allPlanet.length === 0) {
