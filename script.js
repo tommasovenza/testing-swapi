@@ -14,8 +14,15 @@ const secondDate = document.querySelector("#secondDate")
 const error = document.querySelector("#error")
 
 buttonSearch.addEventListener("click", () => {
+  console.log(firstDate.value)
+  console.log(secondDate.value)
   if (firstDate.value === "") {
     alert("ricontrolla i campi di ricerca")
+  } else if (
+    firstDate.value <= "2014-12-09" &&
+    secondDate.value >= "2014-12-10"
+  ) {
+    getData(baseURL)
   } else {
     dateResearch(firstDate, baseURL)
   }
