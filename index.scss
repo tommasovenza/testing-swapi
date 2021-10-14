@@ -21,7 +21,6 @@ h1 {
 .hide {
     display: none;
 }
-
 .animation {
     animation-name: dropIn;
     animation-duration: 1s;
@@ -37,18 +36,28 @@ h1 {
         opacity: 1;
     }
 }
-
-
 // end reusable component
-.planet-list {
-    margin: 2em 0;
+
+.wrapper-uls-lists {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.planet-list-left, .planet-list-right {
+    margin: 2em 0;   
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     li {
         font-size: 2rem;
+        width: 80%;
     }
+}
+.planet-list-right {
+    margin-top: 130px;
+    border-left: 1px solid #000;
 }
 .planet {
     width: 100%;
@@ -69,6 +78,51 @@ h1 {
         font-weight: 300;
     }
 }
+
+// Timeline' section
+li.right::before {
+    content: "";
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 15px solid transparent;
+    border-right: 15px solid white;
+    border-bottom: 15px solid transparent;
+}
+li.right::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 54%;
+    transform: translateY(-50%);
+    left: -14%;
+}
+li.left::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -15%;
+    transform: translateY(-50%);
+}
+li.left::after {
+    content: "";
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 15px solid transparent;
+    border-left: 15px solid white;
+    border-bottom: 15px solid transparent;
+}
+// end timeline' section
 
 // section command
 .wrapper-cmd {
@@ -97,4 +151,27 @@ h1 {
     .flex-items {
         font-size: 1rem;
     }
+}
+
+@media (max-width: 700px) {
+    .wrapper-uls-lists {
+        flex-direction: column;
+    }
+    .planet-list-right {
+        margin: 0;
+    }
+    .planet-list-left {
+        margin-top: 100px;
+        margin-bottom: 0;
+        border-left: 1px solid #000;
+    }
+    li.left::before {
+        left: -15%;
+    }
+    li.left::after {
+        right: 100%;
+        border-right: 15px solid white;
+        border-left: 0;
+    }
+    
 }
