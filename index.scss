@@ -157,6 +157,9 @@ li.left::after {
     }
 }
 @media (max-width: 700px) {
+    input[type="date"] {
+        width: 100%;
+    }
     .wrapper-cmd {
         flex-direction: column;
         .flex-items {
