@@ -151,15 +151,18 @@ li.left::after {
 }
 
 // media queries
-@media (min-width: 500px) {
+@media (min-width: 280px) {
     .flex-items {
-        font-size: 1rem;
-        margin-top: .5em;
+        font-size: 1.125rem;
     }
 }
 @media (max-width: 700px) {
     .wrapper-cmd {
         flex-direction: column;
+        .flex-items {
+            margin-top: .5em;
+            margin-right: 0;
+        }
     }
     .wrapper-uls-lists {
         flex-direction: column;
