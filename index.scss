@@ -154,9 +154,13 @@ li.left::after {
 @media (min-width: 500px) {
     .flex-items {
         font-size: 1rem;
+        margin-top: .5em;
     }
 }
 @media (max-width: 700px) {
+    .wrapper-cmd {
+        flex-direction: column;
+    }
     .wrapper-uls-lists {
         flex-direction: column;
     }
@@ -165,7 +169,7 @@ li.left::after {
         border-left: 1px solid #000;
     }
     .planet-list-left {
-        margin-top: 100px;
+        margin-top: 50px;
         margin-bottom: 0;
         border-left: 1px solid #000;
         border-right: 0;

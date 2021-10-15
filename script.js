@@ -4,7 +4,6 @@ const baseURL = "https://swapi.dev/api/planets/"
 // get things I need
 const planetListLeft = document.querySelector(".planet-list-left")
 const planetListRight = document.querySelector(".planet-list-right")
-// const planetAttr = planetList.querySelector("[data-planet-created]")
 const buttonSearch = document.querySelector("#search")
 const button = document.querySelector("#makeCall")
 const changeOrder = document.querySelector("#change-order")
@@ -18,6 +17,8 @@ buttonSearch.addEventListener("click", () => {
   console.log(secondDate.value)
   if (firstDate.value === "") {
     alert("ricontrolla i campi di ricerca")
+  } else if (firstDate.value === secondDate.value) {
+    dateResearch(firstDate, baseURL)
   } else if (firstDate.value >= secondDate.value) {
     alert("la prima data non può essere superiore alla seconda")
   } else if (secondDate.value === "2014-12-09") {
