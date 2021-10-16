@@ -157,14 +157,15 @@ li.left::after {
     }
 }
 @media (max-width: 700px) {
-    input[type="date"] {
-        width: 100%;
-    }
     .wrapper-cmd {
+        input[type="date"] {
+            width: 100%;
+        }
         flex-direction: column;
         .flex-items {
             margin-top: .5em;
             margin-right: 0;
+            width: 100%;
         }
     }
     .wrapper-uls-lists {
